@@ -8,4 +8,3 @@
 # Time Complexity:
 # Space Complexity:
 
-def minIntervalToIncludeEachQuery(intervals, queries):
