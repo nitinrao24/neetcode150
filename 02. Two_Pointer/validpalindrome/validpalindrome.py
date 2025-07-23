@@ -11,7 +11,7 @@ def validPalindrome(s):
     left = 0
     right = len(s) - 1
     while left < right:
-        while left < right and not s[left].isalnum():
+        while left < right and not s[left].isalnum(): # isalnum() referring to whether the character is alphanumeric or not
             left += 1
         while left < right and not s[right].isalnum():
             right -= 1
@@ -23,7 +23,7 @@ def validPalindrome(s):
 
 
 def validPalindrome1(s):
-    cleanstring = ''.join(char for char in s if char.isalnum())
+    cleanstring = ''.join(char for char in s if char.isalnum()) # skips alphanumeric characters
     cleanstring = cleanstring.lower()
     start = 0
     end = len(cleanstring) - 1
