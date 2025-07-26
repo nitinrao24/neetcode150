@@ -4,8 +4,8 @@
 import heapq
 from collections import defaultdict
 from typing import List
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n+k)
+# Space Complexity: O(n)
 
 def topKFrequent(self, nums: List[int], k: int) -> List[int]:
     # 1) Build a frequency map and track the maximum count seen
