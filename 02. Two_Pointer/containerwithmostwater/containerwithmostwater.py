@@ -4,7 +4,46 @@
 # Find two lines that together with the x-axis form a container, such that the container contains the most water.
 # Return the maximum amount of water a container can store.
 
-def containerWithMostWater(heights):
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+
+def containerWithMostWater(self, height: List[int]) -> int:
+    # Start with zero as the best (largest) area we’ve seen
+    best_area = 0
+
+    # Place one pointer at the very left, one at the very right
+    left = 0
+    right = len(height) - 1
+
+    # Keep going until the two pointers meet
+    while left < right:
+        # Width of the container is the distance between pointers
+        width = right - left
+
+        # Height of the container is the smaller of the two lines
+        if height[left] < height[right]:
+            current_height = height[left]
+        else:
+            current_height = height[right]
+
+        # Area = width × height
+        area = width * current_height
+
+        # If this area is larger than any we’ve seen, remember it
+        if area > best_area:
+            best_area = area
+
+        # Move the pointer on the shorter line inward,
+        # because only by finding a taller line could we possibly increase area
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+
+    # After the loop, best_area holds the maximum possible
+    return best_area
+
+def containerWithMostWater1(heights):
     best_area = 0
     left_idx = 0
     right_idx = len(heights) - 1

@@ -2,8 +2,8 @@
 # Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 # such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n^2)
+# Space Complexity: O(1)
 
 def threeSum(nums):
     triplets = []
