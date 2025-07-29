@@ -1,8 +1,8 @@
 # leetcode 3
 # Given a string s, find the length of the longest substring without duplicate characters.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 
 def longestSubstringWithoutRepeatingChar(str):
     i = 0

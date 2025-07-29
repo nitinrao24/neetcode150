@@ -5,8 +5,8 @@
 # Return the length of the longest substring containing the same letter
 # you can get after performing the above operations.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 
 def longestRepeatingCharPlacement(str, x):
     count = [0] * 26
