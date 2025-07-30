@@ -8,8 +8,8 @@
 # int getMin() retrieves the minimum element in the stack.
 # You must implement a solution with O(1) time complexity for each function.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(1)
+# Space Complexity: O(n)
 
 class MinStack:
     def __init__(self):
