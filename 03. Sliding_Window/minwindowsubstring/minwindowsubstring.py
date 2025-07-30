@@ -3,8 +3,8 @@
 # return the minimum window substring of s such that every character in t (including duplicates) is included in the window.
 # If there is no such substring, return the empty string "".
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(len(s) + len(t))
+# Space Complexity: O(1)
 
 from collections import defaultdict
 
