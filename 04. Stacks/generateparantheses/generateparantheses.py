@@ -1,8 +1,8 @@
 # leetcode 22
 # Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n) per result
+# Space Complexity: O(n)
 
 def generateParantheses(n):
     results = []

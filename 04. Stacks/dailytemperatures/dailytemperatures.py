@@ -4,10 +4,30 @@
 # to get a warmer temperature.
 # If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 
-def dailyTemperatures(nums):
+from typing import List
+
+def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+    n = len(temperatures)
+    # Prepare answer array filled with 0s (default if no warmer day exists)
+    ans = [0] * n
+    # Stack will hold indices of days; temperatures at those indices are in decreasing order
+    stack: List[int] = []
+
+    # Iterate through each day
+    for i in range(n):
+        # While there is a previous day with a lower temperature than today
+        while stack and temperatures[i] > temperatures[stack[-1]]:
+            prev_idx = stack.pop()          # Get the index of that cooler day
+            ans[prev_idx] = i - prev_idx    # Distance to the next warmer day
+        # Push current day index onto stack for future comparisons
+        stack.append(i)
+
+    return ans
+
+def dailyTemperatures1(nums):
     n = len(nums)
     ans = [0] * n
     stack = []
