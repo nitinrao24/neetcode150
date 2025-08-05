@@ -2,8 +2,8 @@
 # Given an array of integers heights representing the histogram's bar height where the width of each bar is 1
 # return the area of the largest rectangle in the histogram.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 
 def largestRectangleInHistogram(heights):
     indices = [-1]

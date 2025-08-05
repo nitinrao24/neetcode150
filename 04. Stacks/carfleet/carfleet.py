@@ -7,11 +7,32 @@
 # The speed of the car fleet is the minimum speed of any car in the fleet.
 # If a car catches up to a car fleet at the mile target, it will still be considered as part of the car fleet.
 # Return the number of car fleets that will arrive at the destination.
+from typing import List
+# Time Complexity: O(n log n)
+# Space Complexity: O(n)
 
-# Time Complexity:
-# Space Complexity:
+def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+    # Pair up each car's position with its speed and sort by position descending
+    # so we process cars closest to the target first.
+    cars = sorted(zip(position, speed), reverse=True)  # list of (pos, speed) from largest pos to smallest
 
-def carFleet(target,position,speed):
+    fleets = 0                  # count of distinct fleets formed
+    last_arrival = -1.0         # arrival time of the fleet ahead; start with sentinel that any real time is larger
+
+    # Go through each car in order from nearest to target backward
+    for pos, spd in cars:
+        # Compute how long this car would take to reach the target if unobstructed
+        arrival_time = (target - pos) / spd
+
+        # If this car takes longer than the fleet ahead, it cannot catch up and becomes a new fleet
+        if arrival_time > last_arrival:
+            fleets += 1               # new fleet is formed
+            last_arrival = arrival_time  # update the leading fleet's arrival time
+        # Otherwise, this car joins the fleet ahead (do nothing)
+
+    return fleets
+
+def carFleet1(target,position,speed):
     car_list = []
     for pos, spd in zip(position, speed):
         car_list.append([pos, spd])
