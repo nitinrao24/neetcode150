@@ -6,31 +6,47 @@
 # Given the array nums after the rotation and an integer target,
 # return true if target is in nums, or false if it is not in nums.
 
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def search(nums, target):
-    start = 0
-    end = len(nums) - 1
+    """
+        Search for `target` in a rotated sorted list `nums`, which may contain duplicates.
+        Returns True if found, False otherwise.
+        Time: O(log n) average, O(n) worst-case. Space: O(1).
+        """
+    left = 0
+    right = len(nums) - 1
 
-    while start <= end:
-        mid = (start + end) // 2
+    # Continue until our search window is empty
+    while left <= right:
+        mid = (left + right) // 2
 
+        # Check if we found the target
         if nums[mid] == target:
             return True
 
-        if nums[mid] == nums[start]:
-            start += 1
+        # If middle equals left, we can't tell which half is sorted
+        # Move left up by one to skip the duplicate
+        if nums[mid] == nums[left]:
+            left += 1
             continue
 
-        if nums[start] <= nums[mid]:
-            if nums[start] <= target < nums[mid]:
-                end = mid - 1
+        # If the left half is sorted
+        if nums[left] <= nums[mid]:
+            # Check if target lies within the sorted left half
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
             else:
-                start = mid + 1
+                left = mid + 1
         else:
-            if nums[mid] < target <= nums[end]:
-                start = mid + 1
+            # Otherwise, the right half must be sorted
+            # Check if target lies within the sorted right half
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
             else:
-                end = mid - 1
+                right = mid - 1
 
+    # If we exit the loop, target is not in the list
     return False
 
 print(search([2,5,6,0,0,1,2],0))
