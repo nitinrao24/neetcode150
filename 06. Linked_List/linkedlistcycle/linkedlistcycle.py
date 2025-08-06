@@ -6,8 +6,8 @@
 # Note that pos is not passed as a parameter.
 # Return true if there is a cycle in the linked list. Otherwise, return false.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -15,14 +15,19 @@ class ListNode:
         self.next = next
 class Solution:
     def linkedListCycle(head):
-        n1 = head
-        n2 = head
+        """Detect if linked list has a cycle."""
+        # 'slow' moves one step at a time, 'fast' moves two steps
+        slow = head
+        fast = head
 
-        while n1 and n1.next:
-            n1 = n1.next.next
-            n2 = n2.next
+        # Traverse until fast reaches the end or pointers meet
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
-            if n1 == n2:
+            # If they meet, a cycle exists
+            if slow == fast:
                 return True
 
+        # Fast reached the end—no cycle
         return False

@@ -4,8 +4,8 @@
 # The list should be made by splicing together the nodes of the first two lists.
 # Return the head of the merged linked list.
 
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(len(list1) + len(list2))
+# Space Complexity: O(1)
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -14,19 +14,28 @@ class ListNode:
 
 class Solution:
     def mergeTwoLists(list1,list2):
-        n1 = ListNode(-1)
-        temp = n1
-        curr1 = list1
-        curr2 = list2
-        while curr1 and curr2:
-            if curr1.val < curr2.val:
-                temp.next = curr1
-                curr1 = curr1.next
+        """Merge two sorted linked lists."""
+        # Create a dummy node to simplify edge cases
+        dummy = ListNode(-1)
+        # 'current' will build out the merged list
+        current = dummy
+        # Pointers for each input list
+        p1, p2 = list1, list2
+
+        # Traverse both lists until one is exhausted
+        while p1 and p2:
+            # Pick the smaller node to append next
+            if p1.val < p2.val:
+                current.next = p1
+                p1 = p1.next
             else:
-                temp.next = curr2
-                curr2 = curr2.next
-            temp = temp.next
-        temp.next = curr1 if curr1 else curr2
+                current.next = p2
+                p2 = p2.next
+            # Advance the tail of the merged list
+            current = current.next
 
-        return n1.next
+        # Attach whichever list still has nodes remaining
+        current.next = p1 if p1 else p2
 
+        # The merged list starts after the dummy node
+        return dummy.next

@@ -1,25 +1,32 @@
 # leetcode 206
 # Given the head of a singly linked list, reverse the list, and return the reversed list.
 
-# Time Complexity:
-# Space Complexity:
-
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+from typing import Optional
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 class Solution:
-    def reverseLinkedList(head):
-        prev_node = None
-        current_node = head
+    def reverse_list(head: Optional[ListNode]) -> Optional[ListNode]:
+        """Reverse a singly linked list."""
+        # 'prev' will trail behind 'curr' and become the new head at the end
+        prev: Optional[ListNode] = None
+        # 'curr' starts at the head of the original list
+        curr: Optional[ListNode] = head
 
-        while current_node is not None:
-            next_node = current_node.next
-            current_node.next = prev_node
-            prev_node = current_node
-            current_node = next_node
+        # Iterate until we've processed every node
+        while curr is not None:
+            # Temporarily store the next node
+            next_temp: Optional[ListNode] = curr.next
+            # Reverse the 'next' pointer of the current node
+            curr.next = prev
+            # Move 'prev' and 'curr' one step forward
+            prev = curr
+            curr = next_temp
 
-        return prev_node
+        return prev
 
 n1 = ListNode(1)
 n2 = ListNode(2)
