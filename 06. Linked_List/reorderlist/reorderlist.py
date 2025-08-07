@@ -4,8 +4,8 @@
 # Reorder the list to be on the following form:
 # L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
 from typing import Optional
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 # Definition for singly-linked list.
 class ListNode:
      def __init__(self, val=0, next=None):
@@ -13,34 +13,32 @@ class ListNode:
          self.next = next
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        fast_ptr = head
-        slow_ptr = head
+        """Reorder list as: L0 → Ln → L1 → Ln-1 → …."""
+        # Find the midpoint of the list
+        fast, slow = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
 
-        while fast_ptr and fast_ptr.next:
-            fast_ptr = fast_ptr.next.next
-            slow_ptr = slow_ptr.next
+        # Split off and reverse the second half
+        second = slow.next
+        slow.next = None  # Terminate first half
+        prev = None
+        while second:
+            nxt = second.next
+            second.next = prev
+            prev = second
+            second = nxt
 
-        second_half = slow_ptr.next
-        slow_ptr.next = None
+        # Merge the two halves, alternating nodes
+        first, second = head, prev
+        while second:
+            tmp1 = first.next
+            tmp2 = second.next
 
-        prev_node = None
+            first.next = second
+            second.next = tmp1
 
-        while second_half:
-            next_temp = second_half.next
-            second_half.next = prev_node
-            prev_node = second_half
-            second_half = next_temp
-
-        first_half = head
-        second_half = prev_node
-
-        while second_half:
-            first_next = first_half.next
-            second_next = second_half.next
-
-            first_half.next = second_half
-            second_half.next = first_next
-
-            first_half = first_next
-            second_half = second_next
+            first = tmp1
+            second = tmp2
 
