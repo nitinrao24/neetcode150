@@ -4,41 +4,57 @@
 # You may assume all four edges of the grid are all surrounded by water.
 from collections import deque
 
-# Time Complexity:
-# Space Complexity:
-def numberOfIslands(grid):
-    island_count = 0
-    visited_cells = set()
+# Time Complexity: O(R x C)
+# Space Complexity: O(1)
+from typing import List
+
+def numIslands(self, grid: List[List[str]]) -> int:
+    # If the grid is empty or has no columns, there are no islands
+    if not grid or not grid[0]:
+        return 0
+
+    # Save row and column counts so we don't recompute them
     rows = len(grid)
-    cols= len(grid[0])
+    cols = len(grid[0])
 
-    def bfs(r, c):
-        queue = deque()
-        visited_cells.add((r, c))
-        queue.append((r, c))
+    # This will count how many separate islands we find
+    islands = 0
 
-        while queue:
-            cell = queue.popleft()
-            curr_row = cell[0]
-            curr_col = cell[1]
-            neighbors = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
-            for row_offset, col_offset in neighbors:
-                new_row = curr_row + row_offset
-                new_col = curr_col + col_offset
-                if (0 <= new_row < rows and 0 <= new_col < cols and
-                        grid[new_row][new_col] == "1" and
-                        (new_row, new_col) not in visited_cells):
-                    queue.append((new_row, new_col))
-                    visited_cells.add((new_row, new_col))
-
+    # Look at every cell in the grid
     for r in range(rows):
         for c in range(cols):
-            if grid[r][c] == "1" and (r, c) not in visited_cells:
-                island_count += 1
-                bfs(r, c)
+            # If we see land ('1'), we've found a new island
+            if grid[r][c] == '1':
+                islands += 1                 # count this island
+                stack = [(r, c)]             # start a DFS stack from this cell
+                grid[r][c] = '0'             # mark it visited by turning it into water
 
-    return island_count
+                # Flood-fill: keep exploring until this island is fully marked
+                while stack:
+                    cr, cc = stack.pop()     # take one cell to explore its neighbors
+
+                    # Check the neighbor above (if in bounds and is land)
+                    if cr > 0 and grid[cr - 1][cc] == '1':
+                        grid[cr - 1][cc] = '0'       # mark visited
+                        stack.append((cr - 1, cc))   # explore it later
+
+                    # Check the neighbor below
+                    if cr + 1 < rows and grid[cr + 1][cc] == '1':
+                        grid[cr + 1][cc] = '0'
+                        stack.append((cr + 1, cc))
+
+                    # Check the neighbor to the left
+                    if cc > 0 and grid[cr][cc - 1] == '1':
+                        grid[cr][cc - 1] = '0'
+                        stack.append((cr, cc - 1))
+
+                    # Check the neighbor to the right
+                    if cc + 1 < cols and grid[cr][cc + 1] == '1':
+                        grid[cr][cc + 1] = '0'
+                        stack.append((cr, cc + 1))
+
+    # After scanning the whole grid, 'islands' holds the total count
+    return islands
 
 print(numberOfIslands([
   ["1","1","0","0","0"],
